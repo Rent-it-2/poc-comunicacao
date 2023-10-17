@@ -558,7 +558,7 @@ async function enviarEmail() {
       </body>
     </html>`,
     subject: 'Confirmação de pedido',
-   // to: ['icarod.menezes@gmail.com','jonathangilber@hotmail.com'],
+   to: ['jonathangilber@hotmail.com'],
  })
  console.log(mailSend)
 }
