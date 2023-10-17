@@ -1,19 +1,22 @@
 const nodemailer = require('nodemailer');
 const SMTP_CONFIG = require('./config/smtp');
+const express = require('express');
+const app = express();
+const port = 3000; // Escolha a porta que desejar
 const transporter = nodemailer.createTransport({
     host: SMTP_CONFIG.host,
     port: SMTP_CONFIG.port,
     secure: false,
     auth: {
-        user: 'rentit.sptech@gmail.com',
-        pass: 'wrqc niyf czvy owuj'
+        user: SMTP_CONFIG.user,
+        pass: SMTP_CONFIG.pass
     },
     tls: {
         rejectUnauthorized: false,
     },
 });
 
-async function run() {
+async function enviarEmail() {
  const mailSend = await transporter.sendMail({
     html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -560,4 +563,15 @@ async function run() {
  console.log(mailSend)
 }
 
-run();
+app.post('/send-email', (req, res) => {
+    enviarEmail();
+    res.send('Email enviado com sucesso');
+  });
+
+// Inicie o servidor
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
+
+
+
