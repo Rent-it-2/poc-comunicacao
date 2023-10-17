@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
     port: SMTP_CONFIG.port,
     secure: false,
     auth: {
-        user: SMTP_CONFIG.user,
-        pass: SMTP_CONFIG.pass
+      user: SMTP_CONFIG.user,
+      pass: SMTP_CONFIG.pass
     },
     tls: {
         rejectUnauthorized: false,
@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function enviarEmail() {
- const mailSend = await transporter.sendMail({
+  const mailSend = await transporter.sendMail({
     html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
@@ -557,21 +557,19 @@ async function enviarEmail() {
         </table>
       </body>
     </html>`,
-    subject: 'Confirmação de pedido',
-   to: ['jonathangilber@hotmail.com'],
- })
- console.log(mailSend)
-}
+     subject: 'Confirmação de pedido',
+     to: ['icarod.menezes@gmail.com','jonathangilber@hotmail.com'],
+
+  })
+  console.log(mailSend)
+ }
 
 app.post('/send-email', (req, res) => {
-    enviarEmail();
-    res.send('Email enviado com sucesso');
-  });
+  enviarEmail();
+  res.send('Email enviado com sucesso');
+});
 
 // Inicie o servidor
 app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+console.log(`Servidor rodando na porta ${port}`);
 });
-
-
-
